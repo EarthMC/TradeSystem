@@ -9,6 +9,7 @@ import de.codingair.tradesystem.spigot.TradeSystem;
 import de.codingair.tradesystem.spigot.trade.Trade;
 import de.codingair.tradesystem.spigot.utils.FloodgateUtils;
 import de.codingair.tradesystem.spigot.utils.Lang;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class TradingGUI extends GUI {
@@ -22,6 +23,15 @@ public class TradingGUI extends GUI {
 
         this.trade = trade;
         this.id = id;
+    }
+
+    @Override
+    public void buildInventory(int size, String title) {
+        super.buildInventory(size, title);
+
+        final TradingInventoryHolder holder = new TradingInventoryHolder(this.trade);
+        this.inventory = Bukkit.createInventory(holder, size, title);
+        holder.setInventory(this.inventory);
     }
 
     public void synchronizeTitle() {
